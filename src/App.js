@@ -8,6 +8,14 @@ import { signOut } from "firebase/auth";
 import { auth } from "./firebase-config";
 
 function App() {
+  const [categories, setCategories] = useState([
+    "Art",
+    "Social",
+    "Technology",
+    "Literature",
+    "News",
+    "Other",
+  ]);
   const [isAuth, setIsAuth] = useState(false);
   const signOutFunction = () => {
     signOut(auth);
@@ -23,13 +31,21 @@ function App() {
         {!isAuth ? (
           <Link to="/login">Login</Link>
         ) : (
-          <button onClick={signOutFunction} className="signoutButton">Sign Out</button>
+          <button onClick={signOutFunction} className="signoutButton">
+            Sign Out
+          </button>
         )}
       </nav>
       <Routes>
-        <Route path="/" element={<Home isAuth={isAuth} />} />
+        <Route
+          path="/"
+          element={<Home isAuth={isAuth} categories={categories} />}
+        />
         <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-        <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
+        <Route
+          path="/createpost"
+          element={<CreatePost isAuth={isAuth} categories={categories} />}
+        />
       </Routes>
     </Router>
   );

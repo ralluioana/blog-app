@@ -3,9 +3,10 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 
-export const CreatePost = ({ isAuth }) => {
+export const CreatePost = ({ isAuth, categories }) => {
   const [title, setTitle] = useState("");
   const [postText, setPostText] = useState("");
+  const [postCategory, setPostCategory] = useState("");
 
   let navigate = useNavigate();
   const postCollectionRef = collection(db, "posts");
@@ -14,6 +15,7 @@ export const CreatePost = ({ isAuth }) => {
       title: title,
       postText: postText,
       author: { name: auth.currentUser.displayName, id: auth.currentUser.uid },
+      postCategory: postCategory,
     });
     navigate("/");
   };
@@ -41,6 +43,19 @@ export const CreatePost = ({ isAuth }) => {
             placeholder="Post..."
             onChange={(event) => setPostText(event.target.value)}
           ></textarea>
+        </div>
+        <div className="inputGp">
+          <label>Category:</label>
+          <select onChange={(event) => setPostCategory(event.target.value)}>
+            <option value="">Select Category...</option>
+            {categories.map((categ) => {
+              return (
+                <option key={categ} value={categ}>
+                  {categ}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <button onClick={createPost}>Submit Post</button>
       </div>

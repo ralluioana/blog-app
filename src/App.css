@@ -83,6 +83,7 @@ a {
   cursor: pointer;
   font-size: 18px;
 }
+
 input,
 textarea {
   margin-top: 5px;
@@ -146,6 +147,19 @@ textarea {
   align-items: center;
   padding-top: 20px;
 }
+.homePageContainer {
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 20px;
+  margin-left: 20px;
+}
+.categoriesContainer {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
 
 .homePage .post {
   width: 600px;
@@ -198,4 +212,16 @@ textarea {
   cursor: pointer;
   font-size: 18px;
   margin-left: auto;
+}
+.categoryLabel {
+  cursor: pointer;
+  font-size: 18px;
+  margin: 5px;
+}
+.categoryLabel:hover {
+  color: rgb(25, 105, 105);
+}
+.showAll {
+  font-size: 20px;
+  font-weight: bolder;
 }
