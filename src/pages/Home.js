@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase-config";
 
 export const Home = ({ isAuth, categories }) => {
+  const [searchInput, setSearchInput] = useState("");
   const [postList, setPostList] = useState([]);
   const [postListByCategory, setPostListByCategory] = useState([]);
   const postCollectionRef = collection(db, "posts");
@@ -31,8 +32,28 @@ export const Home = ({ isAuth, categories }) => {
       postList.filter((post) => post.postCategory === categ)
     );
     console.log("posts by category", postListByCategory);
+    setSearchInput("");
   };
-
+  const handleShowAll = () => {
+    setPostListByCategory(postList);
+    setSearchInput("");
+  };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+    if (e.target.value.length === 0) {
+      setPostListByCategory(postList);
+    }
+    if (e.target.value.length > 2) {
+      setPostListByCategory(
+        postList.filter(
+          (post) =>
+            post.title.includes(searchInput) ||
+            post.postText.includes(searchInput)
+        )
+      );
+    }
+  };
   return (
     <div className="homePageContainer">
       <div className="categoriesContainer">
@@ -46,17 +67,24 @@ export const Home = ({ isAuth, categories }) => {
             {category}
           </label>
         ))}
-        <label
-          className="categoryLabel showAll"
-          onClick={() => setPostListByCategory(postList)}
-        >
+        <label className="categoryLabel showAll" onClick={handleShowAll}>
           Show All
         </label>
       </div>
       <div className="homePage">
-        {postListByCategory.length === 0 && (
-          <h3>There are no posts in this category.</h3>
-        )}
+        <div className="search">
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="Search here..."
+            onChange={handleSearch}
+            value={searchInput}
+          />
+          <span className="searchIcon">
+            <i className="fa fa-search"></i>
+          </span>
+        </div>
+        {postListByCategory.length === 0 && <h3>There are no posts .</h3>}
         {postListByCategory.map((post) => {
           return (
             <div key={post.id} className="post">

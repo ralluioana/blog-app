@@ -7,6 +7,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+a:hover {
+  color: #00b4cc;
+}
+
 nav {
   margin: 0.5%;
   width: 95%;
@@ -84,7 +88,6 @@ a {
   font-size: 18px;
 }
 
-input,
 textarea {
   margin-top: 5px;
 }
@@ -219,9 +222,43 @@ textarea {
   margin: 5px;
 }
 .categoryLabel:hover {
-  color: rgb(25, 105, 105);
+  color: #00b4cc;
 }
 .showAll {
   font-size: 20px;
   font-weight: bolder;
+}
+
+.search {
+  width: 60%;
+  position: relative;
+  display: flex;
+}
+
+.searchInput {
+  width: 100%;
+  border: 3px solid black;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+}
+
+.searchInput:focus,
+.searchInput:active {
+  color: #00b4cc;
+}
+
+.searchIcon {
+  width: 40px;
+  height: 36px;
+  border: 1px solid black;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
 }
