@@ -1,6 +1,8 @@
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase-config";
+import { Categories } from "./Categories";
+import { Search } from "./Search";
 
 export const Home = ({ isAuth, categories }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -56,34 +58,13 @@ export const Home = ({ isAuth, categories }) => {
   };
   return (
     <div className="homePageContainer">
-      <div className="categoriesContainer">
-        <h2>Categories</h2>
-        {categories.map((category) => (
-          <label
-            className="categoryLabel"
-            key={category}
-            onClick={() => handleSelectCategory(category)}
-          >
-            {category}
-          </label>
-        ))}
-        <label className="categoryLabel showAll" onClick={handleShowAll}>
-          Show All
-        </label>
-      </div>
+      <Categories
+        categories={categories}
+        handleSelectCategory={handleSelectCategory}
+        handleShowAll={handleShowAll}
+      />
       <div className="homePage">
-        <div className="search">
-          <input
-            className="searchInput"
-            type="text"
-            placeholder="Search here..."
-            onChange={handleSearch}
-            value={searchInput}
-          />
-          <span className="searchIcon">
-            <i className="fa fa-search"></i>
-          </span>
-        </div>
+        <Search handleSearch={handleSearch} searchInput={searchInput} />
         {postListByCategory.length === 0 && <h3>There are no posts .</h3>}
         {postListByCategory.map((post) => {
           return (
